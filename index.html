@@ -50,7 +50,7 @@ d3.json("trial.json", function(error, graph) {
     .enter().append("g")
 
   var circles = node.append("circle")
-    .attr("r", 10)
+    .attr("r",  function(d) { return d.size; })
     .attr("fill", function(d) { return color(d.group); });
 
   // Create a drag handler and append it to the node object instead

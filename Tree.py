@@ -5,14 +5,41 @@
 #         self.name = name
 #         self.children = children
 import json
+graph = {'vintage': ['sf', 'san'],
+ 'google': ['journey'],
+ 'restaurant': ['sushi', 'san', 'near'],
+ 'sushi': ['restaurant'],
+ 'san': ['restaurant', 'vintage'],
+ 'harvard': [],
+ 'princess': ['polly'],
+ 'polly': ['princess'],
+ 'near': ['restaurant'],
+ 'sf': ['vintage'],
+ 'movie': [],
+ 'tattoo': ['poker'],
+ 'food': ['asian'],
+ 'asian': ['food'],
+ 'check': [],
+ 'set': [],
+ 'target': [],
+ 'pant': [],
+ 'tech': [],
+ 'poker': ['tattoo'],
+ 'playing': [],
+ 'quantitative': [],
+ 'social': ['visualization'],
+ 'visualization': ['social', 'node'],
+ 'node': ['visualization'],
+ 'journey': ['google']}
 
-graph = {
-  'animal' : ['whale','dog'],
-  'whale' : [],
-  'dog' : [],
-  'letters' : ['A'],
-  'A' : [],
-}
+
+# graph = {
+#   'animal' : ['whale','dog'],
+#   'whale' : [],
+#   'dog' : [],
+#   'letters' : ['A'],
+#   'A' : [],
+# }
 
 D3_obj = {
   "nodes": [], 
@@ -22,10 +49,36 @@ D3_obj = {
 visited = [] # List to keep track of visited nodes.
 queue = []     #Initialize a queue
 
+sizes = {'vintage': 11,
+ 'google': 10,
+ 'restaurant': 18,
+ 'sushi': 15,
+ 'san': 31,
+ 'harvard': 19,
+ 'princess': 13,
+ 'polly': 12,
+ 'near': 18,
+ 'sf': 13,
+ 'movie': 12,
+ 'tattoo': 14,
+ 'food': 26,
+ 'asian': 15,
+ 'check': 10,
+ 'set': 12,
+ 'target': 10,
+ 'pant': 15,
+ 'tech': 14,
+ 'poker': 17,
+ 'playing': 13,
+ 'quantitative': 10,
+ 'social': 11,
+ 'visualization': 27,
+ 'node': 12,
+ 'journey': 11}
 
 def bfs(group, graph, node):
   if node not in visited:
-    D3_obj["nodes"].append({"id": node, "group": group})
+    D3_obj["nodes"].append({"id": node, "group": group, "size": sizes[node]})
     visited.append(node)
     queue.append(node)
 
@@ -35,7 +88,7 @@ def bfs(group, graph, node):
       for child in graph[s]:
         if child not in visited:
           visited.append(child)
-          D3_obj["nodes"].append({"id": child, "group": group})
+          D3_obj["nodes"].append({"id": child, "group": group,"size": sizes[child]})
 
           # create link between node and neighbor
           D3_obj["links"].append({"source": node, "target": child, "group": 5})
