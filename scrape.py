@@ -21,13 +21,12 @@ sql_query = """SELECT name FROM sqlite_master
 # ('segment_usage',), ('content_annotations',), ('context_annotations',), ('clusters',), 
 # ('clusters_and_visits',), ('visits',)]
 
-# schema_statement = """DESCRIBE keyword_search_terms;"""
-
 c = sqlite3.connect(history_db)
 cursor = c.cursor()
 
 select_statement = "SELECT * from keyword_search_terms;"
 cursor.execute(select_statement)
+
 # write to csv
 with open("key_search_terms.csv", 'w',newline='') as csv_file: 
     csv_writer = csv.writer(csv_file)
@@ -35,5 +34,3 @@ with open("key_search_terms.csv", 'w',newline='') as csv_file:
     csv_writer.writerows(cursor)
 c.close()
 ##
-# results = cursor.fetchall()
-# print(results)
