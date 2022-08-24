@@ -28,7 +28,7 @@ def bfs(group, graph, node):
           D3_obj["nodes"].append({"id": child, "group": group,"size": SIZES[child]})
 
           # create link between node and neighbor
-          D3_obj["links"].append({"source": node, "target": child, "group": 5})
+          D3_obj["links"].append({"source": node, "target": child, "value": 10})
 
           queue.append(child)
 

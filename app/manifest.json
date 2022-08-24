@@ -10,7 +10,6 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage"],
   "action": {
     "default_icon": {
       "16": "/images/lotusleaf.png",
@@ -24,5 +23,13 @@
     "32": "/images/lotusleaf.png",
     "48": "/images/lotusleaf.png",
     "128": "/images/lotusleaf.png"
+    },
+    "content_security_policy": {
+      "sandbox": "sandbox allow-scripts; script-src 'self' https://d3js.org/d3.v4.min.js"
+    },
+    "sandbox": {
+      "pages": [
+        "newtab.html"
+      ]
     }
 }

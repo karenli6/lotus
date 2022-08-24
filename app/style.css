@@ -1,13 +1,27 @@
-button {
-  height: 30px;
-  width: 30px;
-  outline: none;
-  margin: 10px;
-  border: none;
-  border-radius: 2px;
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe&display=swap');
+html, body {
+  height: 100%;
 }
 
-button.current {
-  box-shadow: 0 0 0 2px white,
-              0 0 0 4px black;
+/* html {
+  display: table;
+  margin: auto;
+} */
+
+
+body {
+  /* display: table-cell;
+  vertical-align: middle; */
+  display: table;
+  margin: auto;
+  font-family: 'Alumni Sans Pinstripe', sans-serif;  margin: 0;
+  background-color: #f2fbfc;
+  color:#709995;
 }
+
+/* @media (prefers-color-scheme: dark) {
+  body {
+    background-color: #333333;
+    color: #ffffff;
+  }
+} */

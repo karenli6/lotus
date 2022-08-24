@@ -3,32 +3,26 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>New tab</title>
+	<title>pond.io</title>
+  <link rel="stylesheet" href="style.css">
+
 	<link rel="icon" type="image/png" sizes="32x32" href="/images/lotusleaf.png" id="favicon">
-	<!-- <script src="newtab.js"></script> -->
 
 </head>
 <body>
-  <h1>hello</h1>
-  <svg width="960" height="600"></svg>
-  <!-- <script src="d3.min.js"></script> -->
+  <div style=" display: flex; justify-content: center;padding-top: 8rem; padding-left:10rem; font-size: 2rem;">
+    <h1>Welcome to your search pond :-)</h1>
+  </div>
+  <div style=" display: flex; justify-content: center;padding-left:6rem;">
+    <h2>~ What interests you today? ~</h2>
+  </div>
 
-  <script src="render.js"></script>
+  <div style=" display: table-cell;vertical-align: middle;">
+    <svg width="960" height="600"></svg>
+    <script src="d3.v4.min.js"></script>
+    <script src="render.js"></script>
+  </div>
+
 
 </body>
 </html>
-<style>
-	body {
-		font-family: "Segoe UI", "Segoe UI Midlevel", "Segoe WP", Arial, sans-serif;
-		margin: 0;
-		background-color: #f7f7f7;
-		color: #262626;
-	}
-	
-	@media (prefers-color-scheme: dark) {
-		body {
-			background-color: #333333;
-			color: #ffffff;
-		}
-	}
-</style>
