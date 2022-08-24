@@ -1,0 +1,28 @@
+{
+  "name": "pond.io",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "incognito": "not_allowed",
+  "description": "Your search history visualization",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage"],
+  "action": {
+    "default_icon": {
+      "16": "/images/lotusleaf.png",
+      "32": "/images/lotusleaf.png",
+      "48": "/images/lotusleaf.png",
+      "128": "/images/lotusleaf.png"
+    }
+  },
+  "icons": {
+    "16": "/images/lotusleaf.png",
+    "32": "/images/lotusleaf.png",
+    "48": "/images/lotusleaf.png",
+    "128": "/images/lotusleaf.png"
+    }
+}
