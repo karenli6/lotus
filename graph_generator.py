@@ -1,18 +1,8 @@
-# # node
-# class Node:
-#     def __init__(self, radius=1, name=None, children=[]):
-#         self.radius = radius
-#         self.name = name
-#         self.children = children
-import json
+# python3 graph_generator.py && python -m SimpleHTTPServer
 
-graph = {
-  'animal' : ['whale','dog'],
-  'whale' : [],
-  'dog' : [],
-  'letters' : ['A'],
-  'A' : [],
-}
+import json
+from parameters import GRAPH
+from parameters import SIZES
 
 D3_obj = {
   "nodes": [], 
@@ -25,7 +15,7 @@ queue = []     #Initialize a queue
 
 def bfs(group, graph, node):
   if node not in visited:
-    D3_obj["nodes"].append({"id": node, "group": group})
+    D3_obj["nodes"].append({"id": node, "group": group, "size": SIZES[node]})
     visited.append(node)
     queue.append(node)
 
@@ -35,22 +25,23 @@ def bfs(group, graph, node):
       for child in graph[s]:
         if child not in visited:
           visited.append(child)
-          D3_obj["nodes"].append({"id": child, "group": group})
+          D3_obj["nodes"].append({"id": child, "group": group,"size": SIZES[child]})
 
           # create link between node and neighbor
           D3_obj["links"].append({"source": node, "target": child, "group": 5})
 
           queue.append(child)
 
+
 group = 1
-for x in graph: 
+for component in GRAPH: 
   # note: graph may not be connected (separate components)
-  bfs(group, graph, x)
+  bfs(group, GRAPH, component)
   group +=1
 
 
 y = json.dumps(D3_obj)
 print(D3_obj)
 
-with open("trial.json", "w") as outfile:
+with open("D3_input.json", "w") as outfile:
     outfile.write(y)
