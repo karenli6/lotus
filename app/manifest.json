@@ -7,15 +7,20 @@
   "description": "Your search history visualization",
   "version": "1.0",
   "manifest_version": 3,
+  "content_scripts": [{ "matches": ["<all_urls>"], "js": ["render.js"] }],
+
   "background": {
     "service_worker": "background.js",
     "type": "module"
   },
+
   "permissions":[
+    "http://127.0.0.1:8000/",
     "storage",
     "scripting",
     "tabs",
-    "activeTab"
+    "activeTab",
+    "history"
   ],
   "action": {
     "default_icon": {
