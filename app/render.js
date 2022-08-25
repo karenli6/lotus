@@ -47,7 +47,9 @@ var node = svg.append("g")
 
 var circles = node.append("circle")
 .attr("r",  function(d) { return d.size; })
-.attr("fill", function(d) { return color(d.group); });
+.attr("fill", function(d) { return color(d.group); })
+.style("stroke", "white");
+
 
 // Create a drag handler and append it to the node object instead
 var drag_handler = d3.drag()
