@@ -1,22 +1,11 @@
 
-// let zoom = d3.zoom()
-//   .on('zoom', handleZoom);
 
-// function handleZoom(e) {
-//   d3.select('svg')
-//     .attr('transform', e.transform);
-// }
+// if want zoom: add the following after "d3.select("svg")"
+// .call(d3.zoom().on("zoom", function () {
+//   svg.attr("transform", d3.event.transform)
+// }))
 
-// function initZoom() {
-//   d3.select('svg')
-//     .call(zoom);
-// }
-
-// initZoom();
-
-var svg = d3.select("svg").call(d3.zoom().on("zoom", function () {
-  svg.attr("transform", d3.event.transform)
-})),
+var svg = d3.select("svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -87,6 +76,8 @@ node
    .attr("transform", function(d) {
      return "translate(" + d.x + "," + d.y + ")";
    })
+   .attr("cx", function(d) { return d.x = Math.max(d.size, Math.min(width - d.size, d.x)); })
+   .attr("cy", function(d) { return d.y = Math.max(d.size, Math.min(height - d.size, d.y)); })
 }
 });
 
