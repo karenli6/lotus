@@ -1,7 +1,6 @@
 # python3 graph_generator.py && python -m SimpleHTTPServer
 
 # IMPORTS 
-import json
 import csv
 import numpy as np
 import pandas as pd
@@ -174,6 +173,3 @@ while len(queue) > 0:
 
 for k in GRAPH.keys():
   GRAPH[k] = list(GRAPH[k])
-
-# with open("./app/D3_input.json", "w") as outfile:
-#     outfile.write(y)
