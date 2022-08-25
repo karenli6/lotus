@@ -8,8 +8,15 @@
   "version": "1.0",
   "manifest_version": 3,
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
+  "permissions":[
+    "storage",
+    "scripting",
+    "tabs",
+    "activeTab"
+  ],
   "action": {
     "default_icon": {
       "16": "/images/lotusleaf.png",
@@ -23,13 +30,5 @@
     "32": "/images/lotusleaf.png",
     "48": "/images/lotusleaf.png",
     "128": "/images/lotusleaf.png"
-    },
-    "content_security_policy": {
-      "sandbox": "sandbox allow-scripts; script-src 'self' https://d3js.org/d3.v4.min.js"
-    },
-    "sandbox": {
-      "pages": [
-        "newtab.html"
-      ]
     }
 }
