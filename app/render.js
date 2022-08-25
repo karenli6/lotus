@@ -22,6 +22,7 @@ chrome.runtime.sendMessage('get-user-data', (response) => {
     });
 });
 
+/////
 // visualize D3
 var svg = d3.select("svg").call(d3.zoom().on("zoom", function () {
   svg.attr("transform", d3.event.transform)
