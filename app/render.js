@@ -95,6 +95,9 @@ d3.json("D3_input.json", function (error, graph) {
       .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
       })
+      .attr("cx", function(d) { return d.x = Math.max(d.size, Math.min(width - d.size, d.x)); })
+      .attr("cy", function(d) { return d.y = Math.max(d.size, Math.min(height - d.size, d.y)); })
+
   }
 });
 
