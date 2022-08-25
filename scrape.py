@@ -6,6 +6,7 @@ import os.path
 import csv
 
 data_path = os.path.expanduser('~')+"/Library/Application Support/Google/Chrome/Default"
+print(data_path)
 files = os.listdir(data_path)
 # print(files)
 history_db = os.path.join(data_path, 'History')
@@ -28,7 +29,7 @@ select_statement = "SELECT * from keyword_search_terms;"
 cursor.execute(select_statement)
 
 # write to csv
-with open("key_search_terms.csv", 'w',newline='') as csv_file: 
+with open("key_search_terms_cynthia.csv", 'w',newline='') as csv_file: 
     csv_writer = csv.writer(csv_file)
     csv_writer.writerow([i[0] for i in cursor.description]) 
     csv_writer.writerows(cursor)
