@@ -1,12 +1,20 @@
 # app.py
 from flask import Flask, jsonify, request, render_template
 from utils import extract_key_terms, write_file
-from graph_generator import graph_generator
+
+import sys
+sys.dont_write_bytecode = True
+sys.path.append('..')
+from graph_generator import create_graph
+from graph_to_d3 import graph_to_d3
 
 app = Flask(__name__)
 
-@app.route('/todays_urls', methods=['POST'])
-def todays_urls():
+print("IN APP PY")
+
+@app.route('/links', methods=['GET', 'POST'])
+def links():
+    print("IN LINKS")
     # POST request
     assert request.method == 'POST'
     print("incoming: ")
@@ -17,9 +25,13 @@ def todays_urls():
     # print(final_array)
     ## dump final_array into csv file
     write_file(final_array)
+    print('after write file')
 
-    ## run graph generator
-    status = graph_generator()
+    # create graph and collect sizes from search history data
+    GRAPH, SIZES = create_graph()
+
+    ## convert graph to d3 json object
+    status = graph_to_d3(GRAPH, SIZES)
     assert status == True
     
     return 'OK', 200

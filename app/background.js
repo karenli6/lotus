@@ -57,13 +57,21 @@ function myAlert(){
 
       chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         // 2. A page requested user data, respond with a copy of `user`
+        console.log("GOT MESSAGE - listening")
         if (message === 'get-user-data') {
           sendResponse(array);
         }
       });
 
-
-
+      // chrome.tabs.onUpdated.addListener(function
+      //   (tabId, changeInfo, tab) {
+      //     // read changeInfo data and do something with it (like read the url)
+      //     if (changeInfo.url) {
+      //       // do something here
+      
+      //     }
+      //   }
+      // );
     });
   var microsecondsPerMin = 1000 * 60;
   var oneMinuteLater = (new Date).getTime() + microsecondsPerMin;
@@ -75,7 +83,7 @@ function myAlert(){
 chrome.runtime.onInstalled.addListener(() => {
   // var microsecondsPerMin = 1000 * 60;
   // var oneMinuteLater = (new Date).getTime() - microsecondsPerWeek;
-  
+  console.log("runtime install")
   myAlert();
 });
 

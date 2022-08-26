@@ -1,26 +1,29 @@
-# python3 graph_generator.py && python -m SimpleHTTPServer
+# python3 graph_to_d3.py && python -m SimpleHTTPServer
 
 import json
-import sys
-sys.path.append('..')
-from data_clustering import GRAPH
-from data_clustering import SIZES
+# import sys
+# sys.path.append('..')
+# from data_clustering import GRAPH
+# from data_clustering import SIZES
 
-def graph_generator():
+def graph_to_d3(GRAPH, SIZES):
+  print('here!!!!')
+  # print('graph:', GRAPH)
+  # print('sizes:', GRAPH)
+
   D3_obj = {
     "nodes": [], 
     "links": [],
   }
 
   visited = [] # List to keep track of visited nodes.
-  queue = []     #Initialize a queue
-
+  queue = []   # Initialize a queue
 
   def bfs(group, graph, node):
     if node not in visited:
       D3_obj["nodes"].append({"id": node, "group": group, "size": SIZES[node]})
-      visited.append(node)
-      queue.append(node)
+      visited.append(node) 
+      queue.append(node) 
 
       while queue:
         s = queue.pop(0) 

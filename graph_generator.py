@@ -1,10 +1,8 @@
-# python3 graph_generator.py && python -m SimpleHTTPServer
-
 # IMPORTS 
 import csv
 import numpy as np
-import pandas as pd
-from pandas import read_csv
+# import pandas as pd
+# from pandas import read_csv
 
 # to prevent against openmp issue
 import os
@@ -29,7 +27,10 @@ import re
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import LatentDirichletAllocation as LDA
 
-#################################################git
+embedder = SentenceTransformer('all-MiniLM-L6-v2')
+SIZES = {}
+
+#################################################
 ## HELPER FUNCTIONS
 
 # NLP functions for cleaning text
@@ -87,7 +88,7 @@ def clean_text(text):
 
 # Perform kmeans clustering on list of phrases
 # need to specify number of clusters wanted (k)
-def generate_clusters(num_clusters, phrase_list):
+def generate_clusters(num_clusters, phrase_list, SIZES):
   sentence_emb = embedder.encode(phrase_list)
   clusters = {}
 
@@ -104,72 +105,85 @@ def generate_clusters(num_clusters, phrase_list):
     cluster = [i for i in cluster if i]
     clusters[topic] = cluster
     SIZES[topic] = len(cluster)
-  return clusters
+  return clusters, SIZES
 
 
 #######################################################
 ## DATA ANALYSIS + CLUSTER GENERATION
 
-# import csv data 
-history = []
-with open('../key_search_terms.csv', 'r') as csvfile:
-    datareader = csv.reader(csvfile)
-    for row in datareader:
-        # prints normalized term
-        history.append(row[3])
 
-# clean data
-history = [nlp_pipeline(h) for h in history]
-history = [clean_text(h) for h in history]
+def create_graph():
+  # import csv data 
+  history = []
+  with open('../key2.csv', 'r') as csvfile:
+      datareader = csv.reader(csvfile)
+      for row in datareader:
+          # prints normalized term
+          history.append(row[3])
 
-print(len(history))
-# create root clusters
-SIZES = {}
-print("got here 2")
-embedder = SentenceTransformer('all-MiniLM-L6-v2')
-roots = generate_clusters(10, history)
+  GRAPH = {}
+  SIZES = {}
+  starting_topics = ['Welcome', 'To', 'Lotus']
 
-print("got here 1")
+  if history == []:
+    print('here!!')
+    for topic in starting_topics:
+      GRAPH[topic] = []
+      SIZES[topic] = 30
 
-# do BFS to generate child clusters and create tree graph of parent-child edges
-queue = []
-GRAPH = {}
-clusters = roots
-size_thresh = 20
-num_children = 3
+  else:
+    # clean data
+    history = [nlp_pipeline(h) for h in history]
+    history = [clean_text(h) for h in history]
 
-# add original parent topics
-for topic in roots.keys():
-    if SIZES[topic] >= size_thresh:
-        queue.append(topic)
-        GRAPH[topic] = set()
+    # print(len(history))
+    # create root clusters
+    # print("got here 2")
+    roots, SIZES = generate_clusters(10, history, SIZES)
+
+    # print("got here 1")
+
+    # do BFS to generate child clusters and create tree graph of parent-child edges
+    queue = []
+
+    clusters = roots
+    size_thresh = 20
+    num_children = 3
+
+    # add original parent topics
+    for topic in roots.keys():
+        if SIZES[topic] >= size_thresh:
+            queue.append(topic)
+            GRAPH[topic] = set()
 
 
-print("got here 2")
+    # print("got here 2")
 
-# BFS
-while len(queue) > 0:
-  parent_topic = queue.pop(0)
-  print('parent', parent_topic)
-  parent_cluster = clusters[parent_topic]
-  if len(parent_cluster) >= size_thresh and len(set(parent_cluster)) > num_children:
-    new_clusters = generate_clusters(num_children, parent_cluster)
-    for child_topic in new_clusters.keys():
-      if child_topic not in clusters.keys():
-        print('child', child_topic)
+    # BFS
+    while len(queue) > 0:
+      parent_topic = queue.pop(0)
+      # print('parent', parent_topic)
+      parent_cluster = clusters[parent_topic]
+      if len(parent_cluster) >= size_thresh and len(set(parent_cluster)) > num_children:
+        new_clusters, SIZES = generate_clusters(num_children, parent_cluster, SIZES)
+        for child_topic in new_clusters.keys():
+          if child_topic not in clusters.keys():
+            # print('child', child_topic)
 
-        # add links between parent + child to graph
-        GRAPH[child_topic] = set()
-        GRAPH[child_topic].add(parent_topic)
-        GRAPH[parent_topic].add(child_topic)
+            # add links between parent + child to graph
+            GRAPH[child_topic] = set()
+            GRAPH[child_topic].add(parent_topic)
+            GRAPH[parent_topic].add(child_topic)
 
-        new_c = new_clusters[child_topic]
-        clusters[child_topic] = new_c
-        SIZES[child_topic] = len(new_c)
+            new_c = new_clusters[child_topic]
+            clusters[child_topic] = new_c
+            SIZES[child_topic] = len(new_c)
 
-        # add child to queue if we re-cluster again
-        if SIZES[child_topic] >= size_thresh:
-          queue.append(child_topic)
+            # add child to queue if we re-cluster again
+            if SIZES[child_topic] >= size_thresh:
+              queue.append(child_topic)
 
-for k in GRAPH.keys():
-  GRAPH[k] = list(GRAPH[k])
+    for k in GRAPH.keys():
+      GRAPH[k] = list(GRAPH[k])
+
+  return GRAPH, SIZES

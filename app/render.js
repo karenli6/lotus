@@ -3,7 +3,8 @@ var serverhost = 'http://127.0.0.1:5000';
 chrome.runtime.sendMessage('get-user-data', (response) => {
   console.log('got content: ', response);
 
-  var url_req = serverhost + '/todays_urls';
+  var url_req = serverhost + '/links';
+  console.log("sending to this API: ", url_req)
   // fetch API
   fetch(url_req, {
     method: 'POST',
