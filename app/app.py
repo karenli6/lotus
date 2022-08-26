@@ -1,10 +1,12 @@
 # app.py
 from flask import Flask, jsonify, request, render_template
 from utils import extract_key_terms, write_file
+from graph_generator import graph_generator
+
 app = Flask(__name__)
 
 @app.route('/todays_urls', methods=['POST'])
-def hello():
+def todays_urls():
     # POST request
     assert request.method == 'POST'
     print("incoming: ")
@@ -15,6 +17,11 @@ def hello():
     # print(final_array)
     ## dump final_array into csv file
     write_file(final_array)
+
+    ## run graph generator
+    status = graph_generator()
+    assert status == True
+    
     return 'OK', 200
 
 if __name__ == "__main__":
