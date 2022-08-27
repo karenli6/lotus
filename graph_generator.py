@@ -128,7 +128,7 @@ def create_graph():
 
   if len(history) == 1:
     starting_topics = ['Welcome', 'To', 'Lotus']
-    print('len history is 1!!')
+    # print('len history is 1!!')
     for topic in starting_topics:
       GRAPH[topic] = []
       SIZES[topic] = 30
@@ -140,18 +140,17 @@ def create_graph():
 
     # print(len(history))
     # create root clusters
-    print("generating roots")
+    # print("generating roots")
     roots, SIZES = generate_clusters(10, history, SIZES)
 
-    print("roots: ", roots)
-
+    # print("roots: ", roots)
     # print("got here 1")
 
     # do BFS to generate child clusters and create tree graph of parent-child edges
     queue = []
 
     clusters = roots
-    size_thresh = 20
+    size_thresh = 5
     num_children = 3
 
     # add original parent topics
@@ -159,9 +158,8 @@ def create_graph():
         GRAPH[topic] = set()
         if SIZES[topic] >= size_thresh:
             queue.append(topic)
-    print("graph keys:", GRAPH.keys())
-
-
+            
+    # print("graph keys:", GRAPH.keys())
     # print("got here 2")
 
     # BFS
@@ -196,5 +194,5 @@ def create_graph():
       GRAPH[k] = list(GRAPH[k])
       SIZES[k] = factor * SIZES[k]
 
-  print('graph:', GRAPH)
+  # print('graph:', GRAPH)
   return GRAPH, SIZES
