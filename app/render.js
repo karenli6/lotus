@@ -3,24 +3,28 @@
 var serverhost = 'http://127.0.0.1:5000';
 chrome.runtime.sendMessage('get-user-data', (response) => {
   console.log('got content: ', response);
-
-  var url_req = serverhost + '/links';
-  console.log("sending to this API: ", url_req)
-  // fetch API
-  fetch(url_req, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ "urls": response })
-  }).then(function (response) {
+  if (response){
+    var url_req = serverhost + '/links';
+    console.log("sending to this API: ", url_req)
+    // fetch API
+    fetch(url_req, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "urls": response })
+    }).then(function (response) {
       return response.text();
     })
-    .then(function (text) {
-      console.log('POST response: ');
-      // Should be 'OK' if everything was good
-      console.log(text);
-    });
+      .then(function (text) {
+        console.log('POST response: ');
+        // Should be 'OK' if everything was good
+        console.log(text);
+      });
+  } else{
+    console.log("NO NEW INFO WAS GOTTEN");
+  }
+
 });
 
 /////
@@ -98,8 +102,8 @@ d3.json("D3_graph_input.json", function (error, graph) {
       .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
       })
-      .attr("cx", function(d) { return d.x = Math.max(d.size, Math.min(width - d.size, d.x)); })
-      .attr("cy", function(d) { return d.y = Math.max(d.size, Math.min(height - d.size, d.y)); })
+      .attr("cx", function (d) { return d.x = Math.max(d.size, Math.min(width - d.size, d.x)); })
+      .attr("cy", function (d) { return d.y = Math.max(d.size, Math.min(height - d.size, d.y)); })
 
   }
 });
