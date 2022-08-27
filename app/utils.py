@@ -22,7 +22,7 @@ def extract_key_terms(array):
 
 def write_file(final_array):
   print("writing to existing csv file .. ")
-  with open('../key_search_terms.csv','a') as fd:
+  with open('../search_terms.csv','w') as fd:
     for key_search_term in final_array:
       string = 'blah,blah,term,'+key_search_term+'\r\n'
       print(string)
