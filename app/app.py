@@ -1,12 +1,15 @@
 # app.py
 from flask import Flask, jsonify, request, render_template
 from utils import extract_key_terms, write_file
-
+import os
 import sys
-sys.dont_write_bytecode = True
+
 sys.path.append('..')
 from graph_generator import create_graph
 from graph_to_d3 import graph_to_d3
+
+
+
 
 app = Flask(__name__)
 
@@ -37,4 +40,7 @@ def links():
     return 'OK', 200
 
 if __name__ == "__main__":
+  # Set environment variables
+  # print("checking env variable", os.environ.get('PYTHONDONTWRITEBYTECODE'))
+  os.environ['PYTHONDONTWRITEBYTECODE'] = '1'
   app.run(debug=True)
