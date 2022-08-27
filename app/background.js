@@ -40,47 +40,48 @@ function myAlert(){
   var microsecondsPerDay = 1000 * 60 * 60 * 24;
   var oneDayAgo = (new Date).getTime() - microsecondsPerDay;
 
-//   if (date >= 1661441718603){
-//     console.log("--- UPDATING HISTORY ----");
+  if (date >= 1661441718603){
+    console.log("--- UPDATING HISTORY ----");
 
-//     chrome.history.search({
-//       'text': '', 
-//       'maxResults': 1000,             // Return every history item....
-//       'startTime': oneDayAgo  // that was accessed less than one week ago.
-//     },
-//     function(historyItems) {
-//       var array = []
-//       for (var i = 0; i < historyItems.length; ++i) {
-//         var url = historyItems[i].url;
-//         array.push(url);
+    chrome.history.search({
+      'text': '', 
+      'maxResults': 1000,             // Return every history item....
+      'startTime': oneDayAgo  // that was accessed less than one week ago.
+    },
+    function(historyItems) {
+      var array = []
+      for (var i = 0; i < historyItems.length; ++i) {
+        var url = historyItems[i].url;
+        array.push(url);
 
-//       }
+      }
 
-//       chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-//         // 2. A page requested user data, respond with a copy of `user`
-//         console.log("GOT MESSAGE - listening")
-//         if (message === 'get-user-data') {
-//           sendResponse(array);
-//         }
-//       });
+      chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        // 2. A page requested user data, respond with a copy of `user`
+        console.log("GOT MESSAGE - listening")
+        if (message === 'get-user-data') {
+          sendResponse(array);
+        }
+      });
 
-//       // chrome.tabs.onUpdated.addListener(function
-//       //   (tabId, changeInfo, tab) {
-//       //     // read changeInfo data and do something with it (like read the url)
-//       //     if (changeInfo.url) {
-//       //       // do something here
+      // chrome.tabs.onUpdated.addListener(function
+      //   (tabId, changeInfo, tab) {
+      //     // read changeInfo data and do something with it (like read the url)
+      //     if (changeInfo.url) {
+      //       // do something here
       
-//       //     }
-//       //   }
-//       // );
-//     });
-//   var microsecondsPerMin = 1000 * 60;
-//   var oneMinuteLater = (new Date).getTime() + microsecondsPerMin;
-//   console.log("ONE MINUTE LATER: ", oneMinuteLater );
-//   // console.log(date == oneMinuteLater);
-// }
+      //     }
+      //   }
+      // );
+    });
+  var microsecondsPerMin = 1000 * 60;
+  var oneMinuteLater = (new Date).getTime() + microsecondsPerMin;
+  console.log("ONE MINUTE LATER: ", oneMinuteLater );
+  // console.log(date == oneMinuteLater);
+}
 }
 
+// method 1: using runtime installed
 chrome.runtime.onInstalled.addListener(() => {
   // var microsecondsPerMin = 1000 * 60;
   // var oneMinuteLater = (new Date).getTime() - microsecondsPerWeek;
@@ -88,7 +89,8 @@ chrome.runtime.onInstalled.addListener(() => {
   myAlert();
 });
 
-
-chrome.tabs.onCreated.addListener(function(tab) {
-  console.log("WE CREATED A ATABBBBBBB=-------")
-})
+// method 2: using tabs onCreated
+// chrome.tabs.onCreated.addListener(function(tab) {
+//   console.log("WE CREATED A ATABBBBBBB=-------");
+//   myAlert();
+// })
