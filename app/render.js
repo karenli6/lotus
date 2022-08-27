@@ -34,9 +34,12 @@ chrome.runtime.sendMessage('get-user-data', (response) => {
 // .call(d3.zoom().on("zoom", function () {
 //   svg.attr("transform", d3.event.transform)
 // }))
-var svg = d3.select("svg"),
-  width = 700,
-  height = 600;
+var width = window.innerWidth * 0.5
+var height =  window.innerHeight * 0.8
+
+var svg = d3.select("svg");
+  width = width,
+  height = height;
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
@@ -81,7 +84,7 @@ d3.json("D3_graph_input.json", function (error, graph) {
 
   drag_handler(node);
 
-  var lables = node.append("text")
+  var label = node.append("text")
     .text(function (d) {
       return d.id;
     })
