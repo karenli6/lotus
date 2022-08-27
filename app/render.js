@@ -51,7 +51,7 @@ d3.json("D3_graph_input.json", function (error, graph) {
     .selectAll("line")
     .data(graph.links)
     .enter().append("line")
-    .style("stroke-width", 1)
+    .style("stroke-width", 2)
     .style("stroke", "#709995");
 
   var node = svg.append("g")
@@ -79,7 +79,8 @@ d3.json("D3_graph_input.json", function (error, graph) {
       return d.id;
     })
     .attr('x', 6)
-    .attr('y', 3);
+    .attr('y', 3)
+    .attr("font-size","14px");;
 
   node.append("title")
     .text(function (d) { return d.id; });
