@@ -1,13 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe&family=Barlow+Condensed&display=swap');
+
 html, body {
   height: 100%;
 }
-
-/* html {
-  display: table;
-  margin: auto;
-} */
-
 
 body {
   /* display: table-cell;
@@ -24,25 +19,24 @@ body {
   justify-content: center;
   padding-top: 8rem; 
   padding-left:10rem; 
-  font-size: 2rem;
+  font-size: 3em;
 }
 .line1 {
   margin:0px;
   white-space:nowrap;
   overflow:hidden;
-  border-right: .2em solidtransparent; /* The typwriter cursor */
+  border-right: .2em solid transparent;
 
-  animation:typing1 3s steps(22,end) forwards,
-            blink 1s 2 ease-in-out;
+  animation:typing1 1.5s steps(22,end) forwards,
+            blink 0.5s 2 ease-in-out;
 }
 .line2{
   margin:0px;
   white-space:nowrap;
   overflow:hidden;
-  /* border-right: .2em solid red;  */
 
-  animation:typing2 6s steps(22,end) forwards,
-            blink 1s infinite, wait 2.8s linear;
+  animation:typing2 2.5s steps(22,end) forwards,
+            blink 0.5s infinite, wait 1s linear;
 
 }
 @keyframes typing1 {

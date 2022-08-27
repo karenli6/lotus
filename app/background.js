@@ -44,7 +44,8 @@ function myAlert(){
     console.log("--- UPDATING HISTORY ----");
 
     chrome.history.search({
-      'text': '',              // Return every history item....
+      'text': '', 
+      'maxResults': 1000,             // Return every history item....
       'startTime': oneDayAgo  // that was accessed less than one week ago.
     },
     function(historyItems) {
