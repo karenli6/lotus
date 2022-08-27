@@ -115,7 +115,7 @@ def generate_clusters(num_clusters, phrase_list, SIZES):
 def create_graph():
   # import csv data 
   history = []
-  with open('../key2.csv', 'r') as csvfile:
+  with open('../search_terms.csv', 'r') as csvfile:
       datareader = csv.reader(csvfile)
       for row in datareader:
           # prints normalized term
@@ -123,10 +123,12 @@ def create_graph():
 
   GRAPH = {}
   SIZES = {}
-  starting_topics = ['Welcome', 'To', 'Lotus']
 
-  if history == []:
-    print('here!!')
+  print('history length:', len(history))
+
+  if len(history) == 1:
+    starting_topics = ['Welcome', 'To', 'Lotus']
+    print('len history is 1!!')
     for topic in starting_topics:
       GRAPH[topic] = []
       SIZES[topic] = 30
@@ -138,8 +140,10 @@ def create_graph():
 
     # print(len(history))
     # create root clusters
-    # print("got here 2")
+    print("generating roots")
     roots, SIZES = generate_clusters(10, history, SIZES)
+
+    print("roots: ", roots)
 
     # print("got here 1")
 
@@ -152,9 +156,10 @@ def create_graph():
 
     # add original parent topics
     for topic in roots.keys():
+        GRAPH[topic] = set()
         if SIZES[topic] >= size_thresh:
             queue.append(topic)
-            GRAPH[topic] = set()
+    print("graph keys:", GRAPH.keys())
 
 
     # print("got here 2")
@@ -183,7 +188,9 @@ def create_graph():
             if SIZES[child_topic] >= size_thresh:
               queue.append(child_topic)
 
+
     for k in GRAPH.keys():
       GRAPH[k] = list(GRAPH[k])
 
+  print('graph:', GRAPH)
   return GRAPH, SIZES
