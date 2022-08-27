@@ -34,14 +34,18 @@ chrome.runtime.sendMessage('get-user-data', (response) => {
 // .call(d3.zoom().on("zoom", function () {
 //   svg.attr("transform", d3.event.transform)
 // }))
-var svg = d3.select("svg"),
-  width = 700,
-  height = 600;
+var width = window.innerWidth * 0.5
+var height =  window.innerHeight * 0.8
+
+var svg = d3.select("svg");
+  width = width,
+  height = height;
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
 var simulation = d3.forceSimulation()
-  .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(45))
+  .force("link", d3.forceLink().distance(60).id(function (d) { return d.id; }))
+  // .force("link", d3.forceLink().distance(function (d) { return d.size; }))
   .force("charge", d3.forceManyBody())
   .force("center", d3.forceCenter(width / 2, height / 2));
 
@@ -77,7 +81,7 @@ d3.json("D3_graph_input.json", function (error, graph) {
 
   drag_handler(node);
 
-  var lables = node.append("text")
+  var label = node.append("text")
     .text(function (d) {
       return d.id;
     })
