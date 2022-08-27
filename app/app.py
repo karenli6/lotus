@@ -31,10 +31,10 @@ def links():
     print('after write file')
 
     # create graph and collect sizes from search history data
-    GRAPH, SIZES = create_graph()
+    GRAPH, SIZES, ROOTS = create_graph()
 
     ## convert graph to d3 json object
-    status = graph_to_d3(GRAPH, SIZES)
+    status = graph_to_d3(GRAPH, SIZES, ROOTS)
     assert status == True
     
     return 'OK', 200

@@ -23,6 +23,9 @@ from nltk.stem import WordNetLemmatizer
 from dateutil import parser
 import string
 import re
+import itertools
+from collections import Counter
+
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import LatentDirichletAllocation as LDA
@@ -142,6 +145,7 @@ def create_graph():
     # create root clusters
     # print("generating roots")
     roots, SIZES = generate_clusters(8, history, SIZES)
+    root_children = {}
 
     # print("roots: ", roots)
     # print("got here 1")
@@ -157,14 +161,16 @@ def create_graph():
     for topic in roots.keys():
         GRAPH[topic] = set()
         if SIZES[topic] >= size_thresh:
-            queue.append(topic)
+            queue.append([topic, topic])
+            root_children[topic] = 1
 
+    print("root sizes", SIZES)
     # print("graph keys:", GRAPH.keys())
     # print("got here 2")
 
     # BFS
     while len(queue) > 0:
-      parent_topic = queue.pop(0)
+      parent_topic, root_topic = queue.pop(0)
       # print('parent', parent_topic)
       parent_cluster = clusters[parent_topic]
       if len(parent_cluster) >= size_thresh and len(set(parent_cluster)) > num_children:
@@ -172,6 +178,7 @@ def create_graph():
         for child_topic in new_clusters.keys():
           if child_topic not in clusters.keys():
             # print('child', child_topic)
+            root_children[root_topic] += 1
 
             # add links between parent + child to graph
             GRAPH[child_topic] = set()
@@ -184,15 +191,46 @@ def create_graph():
 
             # add child to queue if we re-cluster again
             if SIZES[child_topic] >= size_thresh:
-              queue.append(child_topic)
-
+              queue.append([child_topic, root_topic])
+            
+    print("root_children", root_children)
+    # max_num_children = max(root_children.values())
+    max_child_topic = max(root_children, key = root_children.get)
+    print(max_child_topic)
 
     # standardize sizes
     factor = 700/sum(SIZES.values())
+    # find misc topic theme
+    # max_child_topic = ''
+    # max_children = 0
 
     for k in GRAPH.keys():
       GRAPH[k] = list(GRAPH[k])
+      # if len(GRAPH[k]) > max_children:
+        # max_children = len(GRAPH[k]) 
+        # max_child_topic = k
       SIZES[k] = factor * SIZES[k]
 
-  # print('graph:', GRAPH)
-  return GRAPH, SIZES
+    # graph_values = Counter(list(itertools.chain.from_iterable(GRAPH.values())))
+    # max_child_topic = graph_values.most_common(1)[0][0]
+    # # print("max_children: ", max_children)
+    # print("max_child_topic: ", max_child_topic)
+
+    for child in GRAPH[max_child_topic]:
+      for i in range(len(GRAPH[child])):
+        if GRAPH[child][i] == max_child_topic:
+            GRAPH[child][i] = 'Miscellaneous'
+
+    root_topics = list(roots.keys())
+    print("roots", root_topics)
+    for i in range(len(root_topics)):
+      if root_topics[i] == max_child_topic:
+        root_topics[i] = 'Miscellaneous'
+
+    GRAPH['Miscellaneous'] = GRAPH[max_child_topic]
+    del GRAPH[max_child_topic]
+    SIZES['Miscellaneous'] = SIZES[max_child_topic]
+    del SIZES[max_child_topic]
+    
+  print('graph:', GRAPH)
+  return GRAPH, SIZES, root_topics
