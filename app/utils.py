@@ -25,5 +25,5 @@ def write_file(final_array):
   with open('../search_terms.csv','w') as fd:
     for key_search_term in final_array:
       string = 'blah,blah,term,'+key_search_term+'\r\n'
-      print(string)
+      # print(string)
       fd.write(string)

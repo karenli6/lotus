@@ -141,7 +141,7 @@ def create_graph():
     # print(len(history))
     # create root clusters
     # print("generating roots")
-    roots, SIZES = generate_clusters(10, history, SIZES)
+    roots, SIZES = generate_clusters(8, history, SIZES)
 
     # print("roots: ", roots)
     # print("got here 1")
@@ -150,7 +150,7 @@ def create_graph():
     queue = []
 
     clusters = roots
-    size_thresh = 5
+    size_thresh = 10
     num_children = 3
 
     # add original parent topics
@@ -158,7 +158,7 @@ def create_graph():
         GRAPH[topic] = set()
         if SIZES[topic] >= size_thresh:
             queue.append(topic)
-            
+
     # print("graph keys:", GRAPH.keys())
     # print("got here 2")
 
@@ -188,7 +188,7 @@ def create_graph():
 
 
     # standardize sizes
-    factor = 500/sum(SIZES.values())
+    factor = 700/sum(SIZES.values())
 
     for k in GRAPH.keys():
       GRAPH[k] = list(GRAPH[k])

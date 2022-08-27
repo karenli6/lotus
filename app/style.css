@@ -17,9 +17,10 @@ body {
 .text-typing{
   display: flex-column; 
   justify-content: center;
-  padding-top: 8rem; 
-  padding-left:10rem; 
-  font-size: 3em;
+  padding-top: 9rem; 
+  padding-left:8rem; 
+  padding-right:6rem;
+  font-size: 2.5em;
 }
 .line1 {
   margin:0px;

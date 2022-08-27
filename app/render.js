@@ -29,11 +29,14 @@ chrome.runtime.sendMessage('get-user-data', (response) => {
 
 /////
 // visualize D3
-var svg = d3.select("svg").call(d3.zoom().on("zoom", function () {
-  svg.attr("transform", d3.event.transform)
-})),
-  width = +svg.attr("width"),
-  height = +svg.attr("height");
+
+// if want zoom: add this after d3.select("svg")
+// .call(d3.zoom().on("zoom", function () {
+//   svg.attr("transform", d3.event.transform)
+// }))
+var svg = d3.select("svg"),
+  width = 700,
+  height = 600;
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
@@ -103,8 +106,8 @@ d3.json("D3_graph_input.json", function (error, graph) {
       .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
       })
-      .attr("cx", function (d) { return d.x = Math.max(d.size, Math.min(width - d.size, d.x)); })
-      .attr("cy", function (d) { return d.y = Math.max(d.size, Math.min(height - d.size, d.y)); })
+      .attr("cx", function(d) { return d.x = Math.max(d.size, Math.min(width - d.size, d.x)); })
+      .attr("cy", function(d) { return d.y = Math.max(d.size, Math.min(height - d.size, d.y)); })
 
   }
 });
