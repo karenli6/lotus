@@ -189,8 +189,12 @@ def create_graph():
               queue.append(child_topic)
 
 
+    # standardize sizes
+    factor = 500/sum(SIZES.values())
+
     for k in GRAPH.keys():
       GRAPH[k] = list(GRAPH[k])
+      SIZES[k] = factor * SIZES[k]
 
   print('graph:', GRAPH)
   return GRAPH, SIZES
