@@ -6,7 +6,7 @@ function getRecentHistory(){
 
   // To look for history items visited in the last day,
   // subtract a day of microseconds from the current time.
-  var microsecondsPerDay = 1000 * 60 * 60 * 24;
+  var microsecondsPerDay = 1000 * 60 * 60 * 24 * 4;
   var oneDayAgo = (new Date).getTime() - microsecondsPerDay;
 
   if (date >= 1661441718603){
@@ -14,7 +14,7 @@ function getRecentHistory(){
 
     chrome.history.search({
       'text': '', 
-      'maxResults': 1000,
+      'maxResults': 1500,
       'startTime': oneDayAgo 
     },
     function(historyItems) {
