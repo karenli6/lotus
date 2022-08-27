@@ -1,3 +1,4 @@
+
 // flask server link
 var serverhost = 'http://127.0.0.1:5000';
 chrome.runtime.sendMessage('get-user-data', (response) => {

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe&family=Barlow+Condensed&display=swap');
 html, body {
   height: 100%;
 }
@@ -14,14 +14,80 @@ body {
   vertical-align: middle; */
   display: table;
   margin: auto;
-  font-family: 'Alumni Sans Pinstripe', sans-serif;  margin: 0;
+  /* font-family: 'Alumni Sans Pinstripe', sans-serif;  margin: 0; */
+  font-family: 'Barlow Condensed', sans-serif;
   background-color: #f2fbfc;
   color:#709995;
 }
+.text-typing{
+  display: flex-column; 
+  justify-content: center;
+  padding-top: 8rem; 
+  padding-left:10rem; 
+  font-size: 2rem;
+}
+.line1 {
+  margin:0px;
+  white-space:nowrap;
+  overflow:hidden;
+  border-right: .2em solidtransparent; /* The typwriter cursor */
 
-/* @media (prefers-color-scheme: dark) {
-  body {
-    background-color: #333333;
-    color: #ffffff;
+  animation:typing1 3s steps(22,end) forwards,
+            blink 1s 2 ease-in-out;
+}
+.line2{
+  margin:0px;
+  white-space:nowrap;
+  overflow:hidden;
+  /* border-right: .2em solid red;  */
+
+  animation:typing2 6s steps(22,end) forwards,
+            blink 1s infinite, wait 2.8s linear;
+
+}
+@keyframes typing1 {
+  0% { width:0% }
+  100% { width:100% }
+}
+@keyframes typing2 {
+  0% { width:0% }
+  40% {width: 0%}
+  100% { width:100% }
+}
+@keyframes blink {
+  0%,100% {
+    border-right:2px solid transparent;
   }
-} */
+  50% {
+    border-right:2px solid #222;
+  }
+}
+@keyframes wait {
+  0%{opacity: 0}
+  99%{opacity: 0}
+  100%{opacity: 1}
+}
+ 
+/* multiline typewriter */
+.type {
+  /* font-family: 'Barlow Condensed', sans-serif; */
+
+  color:#0000;
+  /* background:
+    linear-gradient(-90deg,#00DFFC 5px,#0000 0) 10px 0,
+    linear-gradient(#00DFFC 0 0) 0 0; */
+  background-size:calc(var(--n)*1ch) 200%;
+  -webkit-background-clip:padding-box,text;
+  background-clip:padding-box,text;
+  background-repeat:no-repeat;
+  animation: 
+   b .7s infinite steps(1),   
+   t calc(var(--n)*.3s) steps(var(--n)) forwards;
+}
+
+@keyframes t{
+  from {background-size:0 200%}
+}
+@keyframes b{
+  50% {background-position:0 -100%,0 0}
+}
