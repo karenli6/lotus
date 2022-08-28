@@ -1,4 +1,4 @@
-
+# utils methods for app.py
 
 def extract_key_terms(array):
   new_array = []

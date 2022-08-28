@@ -1,6 +1,7 @@
 
-// flask server link
+// API request: send user data to python backend
 var serverhost = 'http://127.0.0.1:5000';
+
 chrome.runtime.sendMessage('get-user-data', (response) => {
   console.log('got content: ', response);
   if (response){
@@ -22,18 +23,12 @@ chrome.runtime.sendMessage('get-user-data', (response) => {
         console.log(text);
       });
   } else{
-    console.log("NO NEW INFO WAS GOTTEN");
+    console.log("No new information");
   }
 
 });
 
-/////
 // visualize D3
-
-// if want zoom: add this after d3.select("svg")
-// .call(d3.zoom().on("zoom", function () {
-//   svg.attr("transform", d3.event.transform)
-// }))
 var width = window.innerWidth * 0.5
 var height =  window.innerHeight * 0.8
 
@@ -42,10 +37,6 @@ var svg = d3.select("svg");
   height = height;
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
-
-// function linkDistance(d) {
-//   return d.size*10;
-// }
 
 var simulation = d3.forceSimulation()
   .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(45).strength(0.4))

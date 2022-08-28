@@ -1,14 +1,8 @@
-# python3 graph_to_d3.py && python -m SimpleHTTPServer
-
+# convert node graph to D3 viz
 import json
-# import sys
-# sys.path.append('..')
-# from data_clustering import GRAPH
-# from data_clustering import SIZES
 
 def graph_to_d3(GRAPH, SIZES, ROOTS):
-  print('here!!!!')
-  # print('graph:', GRAPH)
+  print('graph to d3:')
   print('sizes:', SIZES)
 
   D3_obj = {
@@ -43,15 +37,8 @@ def graph_to_d3(GRAPH, SIZES, ROOTS):
   for root in ROOTS:
     bfs(group, GRAPH, root)
     group +=1
-  # for component in GRAPH: 
-  #   # note: graph may not be connected (separate components)
-  #   bfs(group, GRAPH, component)
-  #   group +=1
-
 
   y = json.dumps(D3_obj)
-  print('created d3 object json')
-  # print(D3_obj)
 
   with open("D3_graph_input.json", "w") as outfile:
       outfile.write(y)
