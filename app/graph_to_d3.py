@@ -34,7 +34,7 @@ def graph_to_d3(GRAPH, SIZES, ROOTS):
             D3_obj["nodes"].append({"id": child, "group": group,"size": SIZES[child]})
 
             # create link between node and neighbor
-            D3_obj["links"].append({"source": node, "target": child, "value": 10})
+            D3_obj["links"].append({"source": s, "target": child, "value": 10})
 
             queue.append(child)
 
