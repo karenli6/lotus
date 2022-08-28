@@ -26,6 +26,4 @@ Chrome Extension / D3 visualization (JS stack --> REST API Microservice Backend 
 
 
 ##### Contributors: 
-@karenli6
-
-@cynthia9chen
+@karenli6, @cynthia9chen
