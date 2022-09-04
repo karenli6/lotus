@@ -36,7 +36,7 @@ var svg = d3.select("svg");
 width = width,
   height = height;
 
-var color = d3.scaleOrdinal(d3.schemeCategory20);
+var color = d3.scaleOrdinal(d3.schemePastel1);
 
 var simulation = d3.forceSimulation()
   .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(40).strength(0.9))

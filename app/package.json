@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/karenli6/lotus/issues"
   },
-  "homepage": "https://github.com/karenli6/lotus#readme"
+  "homepage": "https://github.com/karenli6/lotus#readme",
+  "dependencies": {
+    "d3-scale-chromatic": "^3.0.0"
+  }
 }
