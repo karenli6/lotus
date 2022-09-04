@@ -4,7 +4,7 @@ var serverhost = 'http://127.0.0.1:5000';
 
 chrome.runtime.sendMessage('get-user-data', (response) => {
   console.log('got content: ', response);
-  if (response){
+  if (response && response.length > 0) {
     var url_req = serverhost + '/links';
     console.log("sending to this API: ", url_req)
     // fetch API
@@ -22,7 +22,7 @@ chrome.runtime.sendMessage('get-user-data', (response) => {
         // Should be 'OK' if everything was good
         console.log(text);
       });
-  } else{
+  } else {
     console.log("No new information");
   }
 
@@ -30,10 +30,10 @@ chrome.runtime.sendMessage('get-user-data', (response) => {
 
 // visualize D3
 var width = window.innerWidth * 0.5
-var height =  window.innerHeight * 0.8
+var height = window.innerHeight * 0.8
 
 var svg = d3.select("svg");
-  width = width,
+width = width,
   height = height;
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
@@ -81,7 +81,7 @@ d3.json("D3_graph_input.json", function (error, graph) {
     })
     .attr('x', 6)
     .attr('y', 3)
-    .attr("font-size","14px");;
+    .attr("font-size", "14px");;
 
   node.append("title")
     .text(function (d) { return d.id; });
@@ -104,8 +104,8 @@ d3.json("D3_graph_input.json", function (error, graph) {
       .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
       })
-      .attr("cx", function(d) { return d.x = Math.max(d.size, Math.min(width - d.size, d.x)); })
-      .attr("cy", function(d) { return d.y = Math.max(d.size, Math.min(height - d.size, d.y)); })
+      .attr("cx", function (d) { return d.x = Math.max(d.size, Math.min(width - d.size, d.x)); })
+      .attr("cy", function (d) { return d.y = Math.max(d.size, Math.min(height - d.size, d.y)); })
 
   }
 });
