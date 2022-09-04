@@ -1,20 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe&family=Barlow+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap');
+
 
 html, body {
   height: 100%;
 }
 
 body {
-  display: table-cell;
+  /* display: table-cell; */
   vertical-align: middle;
-  display: table;
   margin: auto;
-  font-family: 'Barlow Condensed', sans-serif;
+  align-items: center;
+  display: flex;
+  /* display: table; */
+  
+  font-family: 'Nunito', sans-serif;
   background-color: #f2fbfc;
   color:#709995;
 }
 
-.split{
+/* .split{
   height: 100%;
   position: fixed;
   z-index: 1;
@@ -32,7 +37,7 @@ body {
 .left {
   left: 0;
   width: 45%;
-}
+} */
 
 .centered {
   position: absolute;
@@ -40,6 +45,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  
 }
 
 .text-typing{
@@ -47,19 +53,20 @@ body {
   font-size: 2.5em;
 }
 .line3{
-  font-size: 0.65em;  
+  font-size: 0.5em;  
   width: auto; 
   text-align: center;
   background:white;  
   padding:10px 13px;  
   border-radius:50px;
   opacity: 0.8;
-  font-family: 'Alumni Sans Pinstripe', sans-serif;
+  font-family: 'Nunito', sans-serif;
         
 }
 
 /* typewriter effect */
 .line1 {
+  font-weight: bold;
   margin:0px;
   white-space:nowrap;
   overflow:hidden;

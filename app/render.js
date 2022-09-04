@@ -29,8 +29,8 @@ chrome.runtime.sendMessage('get-user-data', (response) => {
 });
 
 // visualize D3
-var width = window.innerWidth * 0.5
-var height =  window.innerHeight * 0.8
+var width = window.innerWidth 
+var height =  window.innerHeight * 0.9
 
 var svg = d3.select("svg");
   width = width,
@@ -39,9 +39,11 @@ var svg = d3.select("svg");
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
 var simulation = d3.forceSimulation()
-  .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(45).strength(0.4))
-  .force("charge", d3.forceManyBody())
+  .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(40).strength(0.9))
+  .force("charge", d3.forceManyBody().strength(-90))
+  .force('collision', d3.forceCollide())
   .force("center", d3.forceCenter(width / 2, height / 2));
+  
 
 d3.json("D3_graph_input.json", function (error, graph) {
 
