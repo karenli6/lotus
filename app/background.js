@@ -11,8 +11,6 @@ function getRecentHistory() {
   console.log("---- WE ARE REFRESHING ----");
 
   // reset nextRefresh to 24 hours later
-  nextRefresh = (new Date).getTime() + microsecondsPerDay;
-
   chrome.history.search({
     'text': '',
     'maxResults': 2000,
@@ -27,7 +25,6 @@ function getRecentHistory() {
       }
 
       chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        // console.log("background script: LISTENING")
         if (message === 'get-user-data') {
           sendResponse(array);
         }
@@ -36,29 +33,33 @@ function getRecentHistory() {
 
 }
 
+
 // event listener
 chrome.tabs.onCreated.addListener(function (tab) {
-  console.log(previousDay)
-  var today = (new Date()).getDay();
-  if (today !== previousDay) {
-    // update previousDay
-    previousDay = today;
-    // update history and make API call
-    getRecentHistory();
-  } else {
-    console.log("WE ARE HERE------")
-    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-      // console.log("background script: LISTENING")
-      if (message === 'get-user-data') {
-        sendResponse([]);
-      }
-    });
-  }
+  getRecentHistory();
+  // var today = (new Date()).getDay();
+
+  // console.log(previousDay, today)
+  // if (today !== previousDay) {
+  //   // update previousDay
+  //   previousDay = today;
+  //   // update history and make API call
+  //   getRecentHistory();
+  // } else {
+  //   console.log("WE ARE HERE------")
+  //   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  //     // console.log("background script: LISTENING")
+  //     if (message === 'get-user-data') {
+  //       sendResponse([]);
+  //     }
+  //   });
+  // }
 })
 
 
 // Check whether new version is installed
 chrome.runtime.onInstalled.addListener(function (details) {
+  console.log("WE'RE RUNNING")
   if (details.reason == "install") {
     console.log("This is a first install!");
 
