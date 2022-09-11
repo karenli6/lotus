@@ -1,6 +1,6 @@
 
 // API request: send user data to python backend
-var serverhost = 'http://127.0.0.1:5000';
+var serverhost = 'http://127.0.0.1:8080';
 
 chrome.runtime.sendMessage('get-user-data', (response) => {
   console.log('got content: ', response);
