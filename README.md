@@ -14,7 +14,7 @@ Solution: pond.io
 Inspired by the intersection of code, data, and art. 
 
 ## Technical Highlights: 
-Chrome Extension / D3 visualization (JS stack --> REST API Microservice Backend (Flask, Python) --> Applying graph theory & logic --> Text Clustering Model (Python)
+Chrome Extension / D3 visualization (JS stack --> REST API Microservice Backend (Flask, Python) --> Applying graph theory & logic --> NLP Text Clustering and Topic Generation Models (Python)
 
 ## User experience: minimalistic. clean. interesting.
 [WIP] Simply download the extension from the Chrome Web store.
